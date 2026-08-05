@@ -29,5 +29,6 @@ export default defineConfig({
         ]
       }
     })
-  ]
+  ],
+  base: '/', // 👈 確保為絕對路徑 '/'
 });
