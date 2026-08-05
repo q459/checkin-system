@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { GoogleLogin, googleLogout } from '@react-oauth/google';
+import { GoogleOAuthProvider, GoogleLogin, googleLogout } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import Admin from './Admin.jsx';
 
 // 取得環境變數中的 API 網址 (本地開發時自動備用為 http://localhost:5000)
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
+// 🔴 請在此替換為你的 Google OAuth Client ID
+const GOOGLE_CLIENT_ID = "979046836859-5tnfvuk14ll953i5ed30htij8sjs213l.apps.googleusercontent.com";
 
 // ==========================================
 // 1. 家屬前台簽到元件 (含準時/遲到狀態提示)
@@ -180,14 +183,16 @@ function HomeCheckIn() {
 }
 
 // ==========================================
-// 2. 主 App 路由設定
+// 2. 主 App 路由設定 (包含 Google OAuth 包裹)
 // ==========================================
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomeCheckIn />} />
-      <Route path="/admin/*" element={<Admin />} />
-    </Routes>
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+      <Routes>
+        <Route path="/" element={<HomeCheckIn />} />
+        <Route path="/admin/*" element={<Admin />} />
+      </Routes>
+    </GoogleOAuthProvider>
   );
 }
 
