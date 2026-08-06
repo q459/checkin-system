@@ -7,7 +7,7 @@ import { jwtDecode } from 'jwt-decode';
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 // 🔴 請替換為你的 Google OAuth Client ID
-const GOOGLE_CLIENT_ID = "5tnfvuk14ll953i5ed30htij8sjs213l.apps.googleusercontent.com";
+const GOOGLE_CLIENT_ID = "979046836859-5tnfvuk14ll953i5ed30htij8sjs213l.apps.googleusercontent.com";
 
 function HomeCheckIn() {
   const [deviceUuid, setDeviceUuid] = useState('');
