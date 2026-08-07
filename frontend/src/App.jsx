@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { GoogleOAuthProvider, GoogleLogin, googleLogout } from '@react-oauth/google';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 
-// 取得環境變數中的 API 網址
+// 取得環境變數中的 API 網址與 Client ID
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-
-// 🔴 請替換為你的 Google OAuth Client ID
-const GOOGLE_CLIENT_ID = "979046836859-5tnfvuk14ll953i5ed30htij8sjs213l.apps.googleusercontent.com";
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '979046836859-5tnfvuk14ll953i5ed30htij8sjs213l.apps.googleusercontent.com';
 
 function HomeCheckIn() {
   const [deviceUuid, setDeviceUuid] = useState('');
@@ -157,20 +155,6 @@ function HomeCheckIn() {
                 {statusMessage}
               </div>
             )}
-
-            <button 
-              onClick={() => { 
-                googleLogout(); 
-                setUserEmail(null); 
-                setAttendee(null); 
-                setIsCheckedIn(false);
-                setCheckInInfo(null);
-                setStatusMessage(''); 
-              }} 
-              style={{ marginTop: '15px', padding: '6px 15px', cursor: 'pointer', borderRadius: '4px', border: '1px solid #ccc' }}
-            >
-              登出
-            </button>
           </div>
         )}
       </div>
